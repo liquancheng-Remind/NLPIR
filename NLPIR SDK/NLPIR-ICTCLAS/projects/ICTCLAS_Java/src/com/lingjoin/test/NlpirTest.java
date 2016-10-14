@@ -1,5 +1,10 @@
 package com.lingjoin.test;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
+
 import org.junit.Test;
 
 import com.lingjoin.demo.NlpirMethod;
@@ -11,6 +16,27 @@ import com.lingjoin.demo.NlpirMethod;
  *
  */
 public class NlpirTest {
+	
+	
+	@Test 
+	public void testlinss() throws Exception{
+		InputStream l  = new FileInputStream("Data/NLPIR.user");
+		OutputStream o  = new FileOutputStream("Data/NLPIR.user2");
+		long sum = 0;
+		int readlen = -1;
+		byte[] b = new byte[1024];
+		while((readlen = l.read(b))>-1){
+			sum += readlen;
+			if(sum>3072){
+				b[(int) (3074-(sum-readlen))]=b[(int) (3075-(sum-readlen))];
+			}
+			o.write(b,0,readlen);
+		}
+		l.close();
+		o.close();
+	}
+	
+	
 	/**
 	 * 测试文本分词
 	 */
